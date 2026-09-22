@@ -26,6 +26,15 @@ jobs:
           ${{ secrets.OCI_PRIVATE_KEY }}
           EOF
 
+      - name: Test Secret Visibility
+        run: |
+          if [ -z "${{ secrets.OCI_REGION }}" ]; then
+            echo "❌ ERROR: GitHub cannot see the Region secret. It is completely blank."
+            exit 1
+          else
+            echo "✅ SUCCESS: GitHub can see the secret!"
+          fi
+
       - name: Run the bot
         run: php ./index.php
         env:
