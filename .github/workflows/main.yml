@@ -36,7 +36,11 @@ jobs:
           fi
 
       - name: Run the bot
-        run: php ./index.php
+        run: |
+          DELAY=$((RANDOM % 300 + 1))
+          echo "Randomizing execution: Pausing for $DELAY seconds..."
+          sleep $DELAY
+          php ./index.php
         env:
           OCI_REGION: ${{ secrets.OCI_REGION }}
           OCI_TENANCY_ID: ${{ secrets.OCI_TENANCY_ID }}
